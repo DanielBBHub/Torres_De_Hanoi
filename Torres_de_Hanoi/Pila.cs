@@ -68,5 +68,14 @@ namespace Torres_de_Hanoi
             }
         }
 
+        public int getUltimoDisco()
+        {
+            return ultimoDisco;
+        }
+
+        public int getNumDiscos()
+        {
+            return numDiscos;
+        }
     }
 }
