@@ -31,5 +31,16 @@ namespace Torres_de_Hanoi
             color = primerColor;
         }
 
+        public int getTamanyo()
+        {
+            return tamanyo;
+        }
+
+        /* Se podria usar para distinguir los discos ademas de por el tamaño pero deberiamos tener una lista
+          dinamica de colores, quiza introducidos por el usuario*/
+        public String getColor()
+        {
+            return color;
+        }
     }
 }

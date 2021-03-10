@@ -35,11 +35,25 @@ namespace Torres_de_Hanoi
         public void push(Disco d)
         {
             listaDiscos.Add(d);
+            numDiscos++;
+            ultimoDisco = d.getTamanyo();
         }
 
         public Disco pop()
         {
-            return null;
+            if (!isEmpty())
+            {
+                Disco discoSacado = new Disco();
+                discoSacado = listaDiscos[listaDiscos.Count - 1];
+                listaDiscos.RemoveAt(listaDiscos.Count - 1);
+                numDiscos--;
+                ultimoDisco = listaDiscos[listaDiscos.Count - 1].getTamanyo();
+                return discoSacado;
+            }
+            else
+            {
+                return null;
+            }
         }                
 
         public bool isEmpty()
