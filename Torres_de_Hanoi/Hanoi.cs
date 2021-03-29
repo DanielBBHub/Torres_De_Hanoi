@@ -22,11 +22,13 @@ namespace Torres_de_Hanoi
             {
                 discoAux = a.pop();
                 b.push(discoAux);
+                numMovimientos++;
             }
             else
             {
                 discoAux = b.pop();
                 a.push(discoAux);
+                numMovimientos++;
             }
 
         }
@@ -42,7 +44,7 @@ namespace Torres_de_Hanoi
                     mover_disco(ini, aux);
                     mover_disco(aux, fin);
                 }
-                while (fin.getNumDiscos() == 3);
+                while (fin.getNumDiscos() != 3);
             }
 
             if (n % 2 != 0)
@@ -53,7 +55,7 @@ namespace Torres_de_Hanoi
                     mover_disco(ini, fin);
                     mover_disco(aux, fin);
                 }
-                while (fin.getNumDiscos() == 3);
+                while (fin.getNumDiscos() != 3);
             }
 
 
