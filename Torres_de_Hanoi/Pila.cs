@@ -24,30 +24,39 @@ namespace Torres_de_Hanoi
         //manera en la que se puede acceder a ella (si es solo de lectura {get;}, si se puede modificar incluimos el set)
         int numDiscos { get; set; }
         int ultimoDisco { get; set; }
-        List<Disco> listaDiscos { get; set; }
+        List<Disco> listaDiscos = new List<Disco>();
+        String nombrePila = "";
 
 
-        public Pila()
+        public Pila(String nombre)
         {
             numDiscos = 0;
+            nombrePila = nombre;
         }
 
         public void push(Disco d)
         {
             listaDiscos.Add(d);
-            numDiscos++;
+            Console.WriteLine("Metiendo en: " + nombrePila + "\n");
             ultimoDisco = d.getTamanyo();
+            numDiscos++;
+
         }
 
         public Disco pop()
         {
             if (!isEmpty())
             {
+                numDiscos--;
                 Disco discoSacado = new Disco();
                 discoSacado = listaDiscos[listaDiscos.Count - 1];
+                Console.WriteLine("Moviendo desde: " + nombrePila);
+                Console.WriteLine("Muevo disco: " + discoSacado.getTamanyo());
                 listaDiscos.RemoveAt(listaDiscos.Count - 1);
-                numDiscos--;
-                ultimoDisco = listaDiscos[listaDiscos.Count - 1].getTamanyo();
+                if (listaDiscos.Count != 0)
+                {
+                    ultimoDisco = listaDiscos[listaDiscos.Count - 1].getTamanyo();
+                }
                 return discoSacado;
             }
             else

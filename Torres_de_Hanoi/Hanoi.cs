@@ -8,35 +8,43 @@ namespace Torres_de_Hanoi
 {
     class Hanoi
     {
-        int n = 3;
+        int n = 5;
         int numMovimientos = 0;
-        Pila pilaINI = new Pila();
-        Pila pilaAUX = new Pila();
-        Pila pilaFIN = new Pila();
+
+        Pila pilaINI = new Pila("Ini");
+        Pila pilaFIN = new Pila("Fin");
+        Pila pilaAUX = new Pila("Aux");
 
         /*TODO: Implementar métodos*/
         public void mover_disco(Pila a, Pila b)
         {
             Disco discoAux = new Disco();
-            if(comprobarMovimiento(a, b).Equals("A"))
+            if (pilaFIN.getNumDiscos() != n || pilaAUX.getNumDiscos() != n)
             {
-                discoAux = a.pop();
-                b.push(discoAux);
-                numMovimientos++;
-            }
-            else
-            {
-                discoAux = b.pop();
-                a.push(discoAux);
-                numMovimientos++;
+                if(comprobarMovimiento(a, b).Equals("C"))
+                {
+                    return;
+                }
+                if (comprobarMovimiento(a, b).Equals("A"))
+                {
+                    discoAux = a.pop();
+                    b.push(discoAux);
+                    numMovimientos++;
+                }
+                else
+                {
+                    discoAux = b.pop();
+                    a.push(discoAux);
+                    numMovimientos++;
+                }
             }
 
         }
 
-        public int iterativo(int n, Pila ini, Pila fin, Pila aux)
+        public void iterativo(int n, Pila ini, Pila fin, Pila aux)
         {
-            asignarDiscosPilaIni(generarDiscos(n));
-            if(n%2 == 0)
+            generarDiscos(n);
+            if(n%2 != 0)
             {
                 do
                 {
@@ -44,10 +52,13 @@ namespace Torres_de_Hanoi
                     mover_disco(ini, aux);
                     mover_disco(aux, fin);
                 }
-                while (fin.getNumDiscos() != 3);
+                
+               while( fin.getNumDiscos() != n);
+               Console.WriteLine("Número de movimientos totales = " + numMovimientos.ToString());
+               Console.ReadLine();
             }
 
-            if (n % 2 != 0)
+            if (n % 2 == 0)
             {
                 do
                 {
@@ -55,59 +66,78 @@ namespace Torres_de_Hanoi
                     mover_disco(ini, fin);
                     mover_disco(aux, fin);
                 }
-                while (fin.getNumDiscos() != 3);
+                while (fin.getNumDiscos() != n);
+                Console.WriteLine("Número de movimientos totales = " + numMovimientos.ToString());
+                Console.ReadLine();
             }
 
 
-            return 0;
+
         }
 
         //Comprobar el ultimoDisco de cada una de las pilas y si el movimiento a->b es posible segun las reglas
         //o si por el contrario el movimiento correcto es b->a
         public String comprobarMovimiento(Pila a, Pila b)
         {
-            if (a.isEmpty())
+            if (pilaFIN.getNumDiscos() != n)
             {
-                return "B";
-            }
-            else if (b.isEmpty()) {
-                return "A";
-            }
 
-            if(a.getUltimoDisco() > b.getUltimoDisco())
-            {
-                return "B";
+
+                if (a.isEmpty())
+                {
+                    return "B";
+                }
+                else if (b.isEmpty())
+                {
+                    return "A";
+                }
+
+                if (a.getUltimoDisco() > b.getUltimoDisco())
+                {
+                    return "B";
+                }
+                else
+                {
+                    return "A";
+                }
             }
             else
             {
-                return "A";
+                return "C";
             }
 
         }
 
         //Funcion para generar dinamicamente la cantidad de discos
         //que se desee
-        public List<Disco> generarDiscos(int numDiscos)
+        public void generarDiscos(int numDiscos)
         {
             List<Disco> discos = new List<Disco>();
 
-            for(int i = 0; i<=n; i++)
+            for(int i = n; i>=1; i--)
             {
                 Disco disco = new Disco(i);
+                Console.WriteLine(disco.getTamanyo());
                 discos.Add(disco);
-            }
 
-            return discos;
+            }
+            for(int i = 0; i< discos.Count; i++)
+            {
+                asignarDiscosPilaIni(discos[i]);
+
+            }
         }
 
         //Como todas las veces que se comiece el juego van a estar todos
         //los discos en la pilaINI creo un metodo para asignarlos dinamicamente
-        public void asignarDiscosPilaIni(List<Disco> totalDiscos)
+        public void asignarDiscosPilaIni(Disco disco)
         {
-            for (int i = 0; i < totalDiscos.Count; i++)
-            {
-                pilaINI.push(totalDiscos[i]);
-            }
+            pilaINI.push(disco);
+        }
+
+        public void ejecutarHanoi()
+        {
+            iterativo( n,  pilaINI,  pilaFIN,  pilaAUX);
         }
     }
 }
