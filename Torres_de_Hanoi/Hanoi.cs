@@ -8,7 +8,7 @@ namespace Torres_de_Hanoi
 {
     class Hanoi
     {
-        int n = 5;
+        int n = 0;
         int numMovimientos = 0;
 
         Pila pilaINI = new Pila("Ini");
@@ -43,35 +43,42 @@ namespace Torres_de_Hanoi
 
         public void iterativo(int n, Pila ini, Pila fin, Pila aux)
         {
-            generarDiscos(n);
-            if(n%2 != 0)
+            if (n != 0)
             {
-                do
+                generarDiscos(n);
+                if (n % 2 != 0)
                 {
-                    mover_disco(ini, fin);
-                    mover_disco(ini, aux);
-                    mover_disco(aux, fin);
-                }
-                
-               while( fin.getNumDiscos() != n);
-               Console.WriteLine("Número de movimientos totales = " + numMovimientos.ToString());
-               Console.ReadLine();
-            }
+                    do
+                    {
+                        mover_disco(ini, fin);
+                        mover_disco(ini, aux);
+                        mover_disco(aux, fin);
+                    }
 
-            if (n % 2 == 0)
-            {
-                do
-                {
-                    mover_disco(ini, aux);
-                    mover_disco(ini, fin);
-                    mover_disco(aux, fin);
+                    while (fin.getNumDiscos() != n);
+                    Console.WriteLine("Número de movimientos totales = " + numMovimientos.ToString());
+                    Console.ReadLine();
                 }
-                while (fin.getNumDiscos() != n);
-                Console.WriteLine("Número de movimientos totales = " + numMovimientos.ToString());
+
+                if (n % 2 == 0)
+                {
+                    do
+                    {
+                        mover_disco(ini, aux);
+                        mover_disco(ini, fin);
+                        mover_disco(aux, fin);
+                    }
+                    while (fin.getNumDiscos() != n);
+                    Console.WriteLine("Número de movimientos totales = " + numMovimientos.ToString());
+                    Console.ReadLine();
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("No hay suficientes discos");
                 Console.ReadLine();
             }
-
-
 
         }
 
